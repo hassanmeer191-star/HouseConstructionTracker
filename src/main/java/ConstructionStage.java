@@ -39,4 +39,9 @@ public int getStageOrder() {
     return stageOrder;
 }
 
+
+//setter
+public void setStatus(String status){
+this.status = status;
+}
 }
