@@ -25,7 +25,39 @@ this.startDate = startDate;
 this.endDate = endDate;
 }
 
-    public static void main(String[] args) {
+public static void main(String[] args) {
 
-    }
+}
+// Now Adding Getter Methods
+public int getProjectId()
+{
+return ProjectId;
+}
+public String getProjectName()
+{
+return ProjectName;
+}
+public String getAddress() {
+return Address;
+}
+
+public int getHomeOwnerId() {
+return HomeOwnerId;
+}
+public int getSupervisorId() {
+return supervisorId;
+}
+
+public BigDecimal getTotalBudget() {
+return totalBudget;
+}
+
+public LocalDate getStartDate() {
+return startDate;
+}
+
+public LocalDate getEndDate() {
+return endDate;
+}
+
 }
