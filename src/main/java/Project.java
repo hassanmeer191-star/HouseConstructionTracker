@@ -14,6 +14,24 @@ private BigDecimal totalBudget; //for storing total budget
 private LocalDate startDate;    //construction strt
 private LocalDate endDate;    //construction end kab hgy
 
+//Adding setter methords
+public void setProjectName(String ProjectName) {
+this.ProjectName = ProjectName;
+}
+
+public void setAddress(String Address) {
+this.Address = Address;
+}
+
+public void setTotalBudget(BigDecimal totalBudget) {
+this.totalBudget = totalBudget;
+}
+
+public void setEndDate(LocalDate endDate) {
+this.endDate = endDate;
+}
+
+
 public Project(int ProjectId, String ProjectName, String Address, int HomeOwnerId, int supervisorId, BigDecimal totalBudget, LocalDate startDate, LocalDate endDate) {
 this.ProjectId = ProjectId;
 this.ProjectName = ProjectName;
