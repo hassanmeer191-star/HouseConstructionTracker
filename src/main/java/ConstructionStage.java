@@ -14,5 +14,29 @@ this.description = description;
 this.stageOrder = stageOrder;
 }
 
+//Adding getter methods
+public int getStageId() {
+    return stageId;
+}
+
+public int getProjectId() {
+    return projectId;
+}
+
+public String getStageName() {
+    return stageName;
+}
+
+public String getDescription() {
+    return description;
+}
+
+public String getStatus() {
+    return status;
+}
+
+public int getStageOrder() {
+    return stageOrder;
+}
 
 }
