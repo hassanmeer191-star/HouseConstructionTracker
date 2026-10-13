@@ -22,6 +22,37 @@ this.startDate = startDate;
 this.endDate = endDate;
 
 }
+//Getter
+public int getTaskId() {
+    return taskId;
+}
+
+public int getStageId() {
+    return stageId;
+}
+
+public String getTaskName() {
+    return taskName;
+}
+
+public String getDescription() {
+    return description;
+}
+public int getProgressPercentage() {
+    return progressPercentage;
+}
+
+public String getStatus() {
+    return status;
+}
+
+public LocalDate getStartDate() {
+    return startDate;
+}
+
+public LocalDate getEndDate() {
+    return endDate;
+}
 
 
 }
