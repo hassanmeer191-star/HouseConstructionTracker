@@ -18,6 +18,12 @@ this.updateDate = updateDate;
 this.remarks = remarks;
 this.supervisorId = supervisorId;
 }
+//ex old 20% change ---> hke 30%
+//NASA Hire me
+public String getProgressSummary() {
+return oldProgress + "% ---> " + newProgress + "%";
+}
+
 //getter These methods let other classes read the history record's ID, related task, and progress before and after the update
 public int getLogId() {
     return logId;
