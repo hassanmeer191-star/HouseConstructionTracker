@@ -11,4 +11,17 @@ private String status;
 private LocalDate startDate;
 private LocalDate endDate;
 
+public ConstructionTask(int taskId, int stageId, String taskName, String description, int progressPercentage, String status, LocalDate startDate, LocalDate endDate) {
+this.taskId = taskId;
+this.stageId = stageId;
+this.taskName = taskName;
+this.description = description;
+this.progressPercentage = progressPercentage;
+this.status = status;
+this.startDate = startDate;
+this.endDate = endDate;
+
+}
+
+
 }
