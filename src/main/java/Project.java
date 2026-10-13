@@ -23,9 +23,15 @@ public void setAddress(String Address) {
 this.Address = Address;
 }
 
+//totalBudget != null checks that a budget value was provided.
+//compareTo(BigDecimal.ZERO) >= 0 checks that the budget is zero or greater.
+//If both conditions are true, the budget is updated.
+//A negative budget is rejected.
 public void setTotalBudget(BigDecimal totalBudget) {
+if(totalBudget !=null && totalBudget.compareTo(BigDecimal.ZERO) >=0)
+{
 this.totalBudget = totalBudget;
-}
+}}
 
 public void setEndDate(LocalDate endDate) {
 this.endDate = endDate;
