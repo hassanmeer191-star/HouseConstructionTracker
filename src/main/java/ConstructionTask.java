@@ -30,7 +30,15 @@ if(newProgress >0 && newProgress<=100)
 this.progressPercentage=newProgress;
 }
 }
+//when the supervisor changes a tasks progres, we can record the change in its history
+public int updateProgressAndReturnOld(int newProgress) {
+int oldProgress = progressPercentage;
 
+if (newProgress >= 0 && newProgress <= 100) {
+progressPercentage = newProgress;
+}
+return oldProgress;
+}
 
 //Getter
 //These methods will allow other classes to read the task ID, stage ID, name, and description.
