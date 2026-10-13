@@ -23,6 +23,7 @@ this.endDate = endDate;
 
 }
 //Getter
+//These methods will allow other classes to read the task ID, stage ID, name, and description.
 public int getTaskId() {
     return taskId;
 }
@@ -54,5 +55,15 @@ public LocalDate getEndDate() {
     return endDate;
 }
 
+//stter methods
+public void setProgressPercentage(int progressPercentage) {
+    this.progressPercentage = progressPercentage;
+}
+
+public void setStatus(String status) {
+    this.status = status;
+}
+//These let the supervisor update a task completion percentage nd status.
+//add validation later so progress not below 0 or above 100
 
 }
