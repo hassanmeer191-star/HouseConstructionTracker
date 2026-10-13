@@ -22,6 +22,16 @@ this.startDate = startDate;
 this.endDate = endDate;
 
 }
+//Hacker level thinking done by me
+public void UpdateProgress(int newProgress)
+{
+if(newProgress >0 && newProgress<=100)
+{
+this.progressPercentage=newProgress;
+}
+}
+
+
 //Getter
 //These methods will allow other classes to read the task ID, stage ID, name, and description.
 public int getTaskId() {
