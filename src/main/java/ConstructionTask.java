@@ -56,6 +56,7 @@ public LocalDate getEndDate() {
 }
 
 //stter methods
+//Supervisor ko task progress or percentage krne dega functions 
 public void setProgressPercentage(int progressPercentage) {
     this.progressPercentage = progressPercentage;
 }
