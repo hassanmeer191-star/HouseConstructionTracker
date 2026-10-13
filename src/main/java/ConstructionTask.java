@@ -80,7 +80,9 @@ public void setProgressPercentage(int progressPercentage) {
 }
 
 public void setStatus(String status) {
-    this.status = status;
+if (status.equals("Not Started")|| status.equals("In Progress")|| status.equals("Completed")) {
+this.status = status;
+}
 }
 //These let the supervisor update a task completion percentage nd status.
 //add validation later so progress not below 0 or above 100

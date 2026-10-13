@@ -41,7 +41,9 @@ public int getStageOrder() {
 
 
 //setter
-public void setStatus(String status){
+public void setStatus(String status) {
+if (status.equals("Not Started")|| status.equals("In Progress")|| status.equals("Completed")) {
 this.status = status;
+}
 }
 }
