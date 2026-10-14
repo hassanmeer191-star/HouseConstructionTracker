@@ -48,4 +48,18 @@ public String getStatus() {
 return status;
 }
 
+// to check that daily wage is not negative :/
+public void setDailyWage(BigDecimal dailyWage) {
+if (dailyWage != null && dailyWage.compareTo(BigDecimal.ZERO) >= 0) 
+{
+this.dailyWage = dailyWage;
+}
+}
+
+// Update worker status
+public void setStatus(String status) {
+if ("Active".equals(status) || "Inactive".equals(status)) {
+this.status = status;
+}
+}
 }
