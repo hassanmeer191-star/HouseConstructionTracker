@@ -23,7 +23,43 @@ this.description = description;
 this.expenseDate = expenseDate;
 this.supervisorId = supervisorId;
 
-//setAmount(amount);
+setAmount(amount);
 }
 
+// Getter methods
+public int getExpenseId() {
+return expenseId;
+}
+
+public int getProjectId() {
+return projectId;
+}
+
+public String getExpenseName() {
+return expenseName;
+}
+
+public String getDescription() {
+return description;
+}
+
+public BigDecimal getAmount() {
+return amount;
+}
+
+public LocalDate getExpenseDate() {
+return expenseDate;
+}
+
+public int getSupervisorId() {
+return supervisorId;
+}
+
+// Check that expense amount is not negative
+public void setAmount(BigDecimal amount) {
+if (amount != null && amount.compareTo(BigDecimal.ZERO) >= 0) 
+{
+this.amount = amount;
+}
+}
 }
