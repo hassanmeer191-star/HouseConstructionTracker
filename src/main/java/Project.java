@@ -4,70 +4,72 @@ import java.time.LocalDate;
 
 public class Project {
 
-private int ProjectId;     // unique id store krega diffeent projects ki
-private String ProjectName; // stores project names
-private String Address;     //similarly address agya 
-private int HomeOwnerId;    //pta chlega knsa homeowner ka konsa project h
+private int projectId;       // unique id store krega diffeent projects ki
+private String projectName;  // stores project names
+private String address;      // similarly address agya
+private int homeownerId;     // pta chlega knsa homeowner ka konsa project h
 
-private int supervisorId;   //used to identify supervisor
-private BigDecimal totalBudget; //for storing total budget
-private LocalDate startDate;    //construction strt
-private LocalDate endDate;    //construction end kab hgy
+private int supervisorId;    // used to identify supervisor
+private BigDecimal totalBudget; // for storing total budget
+private LocalDate startDate;    // construction strt
+private LocalDate endDate;      // construction end kab hgy
 
-//Adding setter methords
-public void setProjectName(String ProjectName) {
-this.ProjectName = ProjectName;
+public Project(int projectId, String projectName, String address,int homeownerId, int supervisorId, BigDecimal totalBudget,
+LocalDate startDate, LocalDate endDate) 
+{
+this.projectId = projectId;
+this.projectName = projectName;
+this.address = address;
+this.homeownerId = homeownerId;
+this.supervisorId = supervisorId;
+this.startDate = startDate;
+this.endDate = endDate;
+
+// Use the setter so the budget check also runs in the constructor
+setTotalBudget(totalBudget);
 }
 
-public void setAddress(String Address) {
-this.Address = Address;
+
+// Adding setter methods
+public void setProjectName(String projectName) {
+this.projectName = projectName;
 }
 
-//totalBudget != null checks that a budget value was provided.
-//compareTo(BigDecimal.ZERO) >= 0 checks that the budget is zero or greater.
-//If both conditions are true, the budget is updated.
-//A negative budget is rejected.
+public void setAddress(String address) {
+this.address = address;
+}
+
+// Check that budget is not negative
 public void setTotalBudget(BigDecimal totalBudget) {
-if(totalBudget !=null && totalBudget.compareTo(BigDecimal.ZERO) >=0)
+if (totalBudget != null&& totalBudget.compareTo(BigDecimal.ZERO) >= 0) 
 {
 this.totalBudget = totalBudget;
-}}
+}
+}
 
 public void setEndDate(LocalDate endDate) {
 this.endDate = endDate;
 }
 
 
-public Project(int ProjectId, String ProjectName, String Address, int HomeOwnerId, int supervisorId, BigDecimal totalBudget, LocalDate startDate, LocalDate endDate) {
-this.ProjectId = ProjectId;
-this.ProjectName = ProjectName;
-this.Address = Address;
-this.HomeOwnerId = HomeOwnerId;
-this.supervisorId = supervisorId;
-this.totalBudget = totalBudget;
-this.startDate = startDate;
-this.endDate = endDate;
+
+// Now adding getter methods
+public int getProjectId() {
+return projectId;
 }
 
-public static void main(String[] args) {
+public String getProjectName() {
+return projectName;
+}
 
-}
-// Now Adding Getter Methods
-public int getProjectId()
-{
-return ProjectId;
-}
-public String getProjectName()
-{
-return ProjectName;
-}
 public String getAddress() {
-return Address;
+return address;
 }
 
-public int getHomeOwnerId() {
-return HomeOwnerId;
+public int getHomeownerId() {
+return homeownerId;
 }
+
 public int getSupervisorId() {
 return supervisorId;
 }
@@ -83,5 +85,4 @@ return startDate;
 public LocalDate getEndDate() {
 return endDate;
 }
-
 }
