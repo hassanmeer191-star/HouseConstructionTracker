@@ -1,6 +1,8 @@
+
 import java.time.LocalDate;
 
 public class ConstructionTask {
+
 private int taskId;
 private int stageId;
 private String taskName;
@@ -11,81 +13,76 @@ private String status;
 private LocalDate startDate;
 private LocalDate endDate;
 
-public ConstructionTask(int taskId, int stageId, String taskName, String description, int progressPercentage, String status, LocalDate startDate, LocalDate endDate) {
+public ConstructionTask(int taskId, int stageId, String taskName,String description, int progressPercentage, String status,LocalDate startDate, LocalDate endDate) 
+{
 this.taskId = taskId;
 this.stageId = stageId;
 this.taskName = taskName;
 this.description = description;
-this.progressPercentage = progressPercentage;
-this.status = status;
 this.startDate = startDate;
 this.endDate = endDate;
+this.progressPercentage = 0;
+this.status = "Not Started";
 
+updateProgress(progressPercentage);
+setStatus(status);
 }
-//Hacker level thinking done by me
-public void UpdateProgress(int newProgress)
-{
-if(newProgress >0 && newProgress<=100)
-{
-this.progressPercentage=newProgress;
-}
-}
-//when the supervisor changes a tasks progres, we can record the change in its history
-public int updateProgressAndReturnOld(int newProgress) {
-int oldProgress = progressPercentage;
 
+// Hacker level thinking done by me
+// when the supervisor changes a tasks progres, we can record the change in its history
+// Update progress only when the value is valid
+public boolean updateProgress(int newProgress) {
 if (newProgress >= 0 && newProgress <= 100) {
-progressPercentage = newProgress;
-}
-return oldProgress;
+this.progressPercentage = newProgress;
+return true;
 }
 
-//Getter
-//These methods will allow other classes to read the task ID, stage ID, name, and description.
+return false;
+}
+
+// Getter
+// These methods will allow other classes to read the task ID, stage ID, name, and description.
 public int getTaskId() {
-    return taskId;
+return taskId;
 }
 
 public int getStageId() {
-    return stageId;
+return stageId;
 }
 
 public String getTaskName() {
-    return taskName;
+return taskName;
 }
 
 public String getDescription() {
-    return description;
+return description;
 }
+
 public int getProgressPercentage() {
-    return progressPercentage;
+return progressPercentage;
 }
 
 public String getStatus() {
-    return status;
+return status;
 }
 
 public LocalDate getStartDate() {
-    return startDate;
+return startDate;
 }
 
 public LocalDate getEndDate() {
-    return endDate;
+return endDate;
 }
 
-//stter methods
-//Supervisor ko task progress or percentage krne dega functions 
-public void setProgressPercentage(int progressPercentage) {
-    this.progressPercentage = progressPercentage;
-}
-
+// stter methods
+// Supervisor ko task progress or percentage krne dega functions
 public void setStatus(String status) {
-if (status.equals("Not Started")|| status.equals("In Progress")|| status.equals("Completed")) 
+if ("Not Started".equals(status)|| "In Progress".equals(status)|| "Completed".equals(status)) 
 {
 this.status = status;
 }
 }
-//These let the supervisor update a task completion percentage nd status.
-//add validation later so progress not below 0 or above 100
 
+// These let the supervisor update a task completion percentage nd status.
+// add validation later so progress not below 0 or above 100
 }
