@@ -12,6 +12,7 @@ this.projectId = projectId;
 this.stageName = stageName;
 this.description = description;
 this.stageOrder = stageOrder;
+this.status = "Not Started";
 }
 
 //Adding getter methods
