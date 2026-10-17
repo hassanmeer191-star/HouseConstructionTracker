@@ -11,6 +11,7 @@ ConstructionTask task = new ConstructionTask(100, 10, "Brickwork", "Ground floor
 
 int oldProgress = task.getProgressPercentage();
 boolean updated = task.updateProgress(50);
+
 //testing only
 boolean invalidUpdate = task.updateProgress(120);
 System.out.println("Invalid update accepted: " + invalidUpdate);

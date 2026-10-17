@@ -2,10 +2,7 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginForm extends JFrame {
 
@@ -192,6 +189,7 @@ passwordField.setEchoChar('\u2022');
 }
 });
 
+// Connect Sign In button to database authentication
 signInButton.addActionListener(e -> loginUser());
 
 add(mainPanel);
@@ -199,8 +197,8 @@ setVisible(true);
 }
 
 private void addLabel(JPanel panel,
-  GridBagConstraints gbc,
-  String text, int row) {
+GridBagConstraints gbc,
+String text, int row) {
 
 gbc.gridx = 0;
 gbc.gridy = row;
@@ -209,8 +207,8 @@ panel.add(new JLabel(text), gbc);
 }
 
 private void addComponent(JPanel panel,
-      GridBagConstraints gbc,
-      JComponent component, int row) {
+GridBagConstraints gbc,
+JComponent component, int row) {
 
 gbc.gridx = 1;
 gbc.gridy = row;
@@ -254,6 +252,7 @@ if (password.isEmpty()) {
 passwordField.setBorder(new LineBorder(errorColor, 2));
 passwordErrorLabel.setForeground(errorColor);
 passwordErrorLabel.setText("Password is required.");
+
 passwordLengthLabel.setForeground(Color.GRAY);
 passwordLengthLabel.setText(
 "Password must contain at least 8 characters.");
@@ -264,6 +263,7 @@ if (password.length() < 8) {
 passwordField.setBorder(new LineBorder(errorColor, 2));
 passwordErrorLabel.setForeground(errorColor);
 passwordErrorLabel.setText("Password is too short.");
+
 passwordLengthLabel.setForeground(errorColor);
 passwordLengthLabel.setText(
 password.length() + "/8 characters. Need "
@@ -274,55 +274,14 @@ return false;
 passwordField.setBorder(new LineBorder(successColor, 2));
 passwordErrorLabel.setForeground(successColor);
 passwordErrorLabel.setText("Password length is valid.");
+
 passwordLengthLabel.setForeground(successColor);
 passwordLengthLabel.setText(
 password.length() + " characters. Minimum met.");
 return true;
 }
 
-// Check credentials in users.txt
-private boolean checkCredentials(String email,
-             String password,
-             String selectedRole)
-throws IOException {
-
-File file = new File("users.txt");
-
-// Print the exact path being checked in NetBeans Output
-System.out.println("Looking for users.txt at: "
-+ file.getAbsolutePath());
-System.out.println("File exists: " + file.exists());
-System.out.println("Can read file: " + file.canRead());
-
-try (BufferedReader reader =
-new BufferedReader(new FileReader(file))) {
-
-String line;
-
-while ((line = reader.readLine()) != null) {
-
-String[] details = line.split(",", -1);
-
-if (details.length != 3) {
-continue;
-}
-
-String savedEmail = details[0].trim();
-String savedPassword = details[1].trim();
-String savedRole = details[2].trim();
-
-if (email.equalsIgnoreCase(savedEmail)
-&& password.equals(savedPassword)
-&& selectedRole.equalsIgnoreCase(savedRole)) {
-return true;
-}
-}
-}
-
-return false;
-}
-
-// Handle login
+// Check credentials in Neon PostgreSQL
 private void loginUser() {
 
 boolean emailValid = validateEmail();
@@ -341,15 +300,28 @@ String password = new String(passwordField.getPassword());
 String role = roleComboBox.getSelectedItem().toString();
 
 try {
+Retieve_user_info userDAO = new Retieve_user_info();
 
-if (checkCredentials(email, password, role)) {
+User user = userDAO.authenticate(email, password, role);
 
+if (user != null) {
+
+// Open the Supervisor Dashboard
+if (user.getRole().equalsIgnoreCase("Supervisor")) {
+
+SupervisorDashboard dashboard = new SupervisorDashboard();
+dashboard.setVisible(true);
+this.dispose();
+
+} else {
+
+// Homeowner and Admin dashboards will be connected later
 JOptionPane.showMessageDialog(this,
-"Login successful!\nWelcome, " + role + ".",
-"Success",
-JOptionPane.INFORMATION_MESSAGE);
-
-// The selected dashboard will be opened here later.
+    "Login successful!\nWelcome, "
+    + user.getFullName() + ".",
+    "Success",
+    JOptionPane.INFORMATION_MESSAGE);
+}
 
 } else {
 
@@ -359,13 +331,15 @@ JOptionPane.showMessageDialog(this,
 JOptionPane.ERROR_MESSAGE);
 }
 
-} catch (IOException e) {
+} catch (SQLException e) {
 
 JOptionPane.showMessageDialog(this,
-"Could not read users.txt.\n"
-+ "Check the file location and name.",
-"File Error",
+"Could not connect to the database.\n"
++ "Please try again.",
+"Database Error",
 JOptionPane.ERROR_MESSAGE);
+
+System.out.println("Database error: " + e.getMessage());
 }
 }
 

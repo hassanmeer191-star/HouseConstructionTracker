@@ -10,4 +10,19 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>HouseConstructionTracker</exec.mainClass>
     </properties>
+<dependencies>
+    <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.7.8</version>
+    </dependency>
+    
+<dependency>
+    <groupId>org.mindrot</groupId>
+    <artifactId>jbcrypt</artifactId>
+    <version>0.4</version>
+</dependency>
+
+</dependencies>
+
 </project>
