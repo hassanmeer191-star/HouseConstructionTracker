@@ -944,17 +944,143 @@ this.status = status;
 
 // ---------------- NAVIGATION ----------------
 
+
+private JPanel createSitePhotosPage() {
+JPanel page = new JPanel(new BorderLayout(15, 18));
+page.setBackground(BACKGROUND);
+
+JPanel header = new JPanel();
+header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
+header.setBackground(BACKGROUND);
+
+JLabel heading = new JLabel("Site Photos");
+heading.setFont(new Font("Arial", Font.BOLD, 27));
+heading.setForeground(TEXT);
+
+JLabel subtitle = new JLabel(
+"Select a construction project to upload its site photos."
+);
+subtitle.setFont(new Font("Arial", Font.PLAIN, 13));
+subtitle.setForeground(Color.GRAY);
+subtitle.setBorder(new EmptyBorder(7, 0, 10, 0));
+
+header.add(heading);
+header.add(subtitle);
+page.add(header, BorderLayout.NORTH);
+
+String[] columns = {
+"Project ID", "Project Name", "Homeowner",
+"Location", "Status"
+};
+
+DefaultTableModel model = new DefaultTableModel(columns, 0) {
+@Override
+public boolean isCellEditable(int row, int column) {
+return false;
+}
+};
+
+JTable table = new JTable(model);
+table.setRowHeight(32);
+table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+// Load projects directly from Neon.
+try {
+List<Map<String, Object>> databaseProjects =
+projectDAO.getAllProjects();
+
+for (Map<String, Object> row : databaseProjects) {
+int supervisorId =
+((Number) row.get("supervisor_id")).intValue();
+
+// Only show projects assigned to this supervisor.
+if (supervisorId != currentSupervisorId) {
+continue;
+}
+
+model.addRow(new Object[]{
+row.get("project_id"),
+row.get("project_name"),
+row.get("homeowner_name"),
+row.get("location"),
+row.get("status")
+});
+}
+
+} catch (SQLException ex) {
+showError(
+"Could not load projects:\n" + ex.getMessage()
+);
+}
+
+JScrollPane scrollPane = new JScrollPane(table);
+scrollPane.getViewport().setBackground(Color.WHITE);
+page.add(scrollPane, BorderLayout.CENTER);
+
+JButton manageButton = new JButton("Manage Photos");
+manageButton.setBackground(BLUE);
+manageButton.setForeground(Color.WHITE);
+manageButton.setFocusPainted(false);
+
+manageButton.addActionListener(e -> {
+int selectedRow = table.getSelectedRow();
+
+if (selectedRow == -1) {
+showError("Please select a project first.");
+return;
+}
+
+int projectId = ((Number) model.getValueAt(
+selectedRow, 0)).intValue();
+
+contentPanel.removeAll();
+pageLabel.setText("Workspace / Site Photos / Upload");
+
+contentPanel.add(
+new SitePhotosPanel(
+    projectId,
+    currentSupervisorId
+),
+BorderLayout.CENTER
+);
+
+contentPanel.revalidate();
+contentPanel.repaint();
+});
+
+JPanel bottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
+bottom.setBackground(BACKGROUND);
+bottom.add(manageButton);
+
+page.add(bottom, BorderLayout.SOUTH);
+
+return page;
+}
+
+
 private void showSection(String section) {
 contentPanel.removeAll();
 
 if (section.equals("Overview")) {
 pageLabel.setText("Workspace / Overview");
-contentPanel.add(createDashboardContent(), BorderLayout.CENTER);
+contentPanel.add(
+createDashboardContent(),
+BorderLayout.CENTER
+);
 
 } else if (section.equals("Construction Projects")) {
 pageLabel.setText("Workspace / Construction Projects");
 contentPanel.add(
-createConstructionProjectsPage(), BorderLayout.CENTER);
+createConstructionProjectsPage(),
+BorderLayout.CENTER
+);
+
+} else if (section.equals("Site Photos")) {
+pageLabel.setText("Workspace / Site Photos");
+contentPanel.add(
+createSitePhotosPage(),
+BorderLayout.CENTER
+);
 
 } else if (section.equals("Logout")) {
 dispose();
@@ -968,7 +1094,8 @@ JPanel placeholder = new JPanel(new GridBagLayout());
 placeholder.setBackground(BACKGROUND);
 
 JLabel message = new JLabel(
-section + " page will be added later.");
+section + " page will be added later."
+);
 message.setFont(new Font("Arial", Font.BOLD, 18));
 message.setForeground(TEXT);
 
@@ -979,6 +1106,8 @@ contentPanel.add(placeholder, BorderLayout.CENTER);
 contentPanel.revalidate();
 contentPanel.repaint();
 }
+
+
 
 public static void main(String[] args) {
 SwingUtilities.invokeLater(SupervisorDashboard::new);
