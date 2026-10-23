@@ -1,16 +1,41 @@
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-import javax.swing.RowFilter;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class SupervisorDashboard extends JFrame {
 
@@ -1076,11 +1101,20 @@ BorderLayout.CENTER
 );
 
 } else if (section.equals("Site Photos")) {
-pageLabel.setText("Workspace / Site Photos");
-contentPanel.add(
-createSitePhotosPage(),
-BorderLayout.CENTER
-);
+    pageLabel.setText("Workspace / Site Photos");
+    contentPanel.add(
+        createSitePhotosPage(),
+        BorderLayout.CENTER
+    );
+
+} else if (section.equals("Workers Management")
+        || section.equals("Manage Workers")) {
+
+    pageLabel.setText("Workspace / Workers Management");
+    contentPanel.add(
+        new WorkersManagementPanel(currentSupervisorId),
+        BorderLayout.CENTER
+    );
 
 } else if (section.equals("Logout")) {
 dispose();
