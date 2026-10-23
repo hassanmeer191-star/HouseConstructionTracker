@@ -1141,8 +1141,6 @@ contentPanel.revalidate();
 contentPanel.repaint();
 }
 
-
-
 public static void main(String[] args) {
 SwingUtilities.invokeLater(SupervisorDashboard::new);
 }
