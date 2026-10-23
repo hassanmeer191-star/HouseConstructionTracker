@@ -1,65 +1,104 @@
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
 public class Worker {
-private int workerId;           // unique id of the worker
-private int projectId;           // project where worker is assigned
-private String workerName;       // name of the worker
-private String workType;         // mason, electrician, plumber etc
-private String phoneNumber;      // worker contact number
-private BigDecimal dailyWage;    // daily payment of worker
-private String status;           // Active or Inactive
 
-public Worker(int workerId, int projectId, String workerName,String workType, String phoneNumber, BigDecimal dailyWage,String status)
-{
-this.workerId = workerId;
-this.projectId = projectId;
-this.workerName = workerName;
-this.workType = workType;
-this.phoneNumber = phoneNumber;
+    private int workerId;
+    private int projectId;
+    private String fullName;
+    private String phone;
+    private String jobType;
+    private LocalDate joiningDate;
+    private String wageType;
+    private BigDecimal wageAmount;
+    private String workerStatus;
+    private String performanceRating;
+    private String performanceNotes;
+    private BigDecimal bonusAmount;
 
-//setDailyWage(dailyWage);
-//setStatus(status);
-}
- // Getter methods
-public int getWorkerId() {
-return workerId;
-}
+    public Worker(int projectId, String fullName, String phone,
+                  String jobType, LocalDate joiningDate,
+                  String wageType, BigDecimal wageAmount) {
 
-public int getProjectId() {
-return projectId;
-}
+        this.projectId = projectId;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.jobType = jobType;
+        this.joiningDate = joiningDate;
+        this.wageType = wageType;
+        this.wageAmount = wageAmount;
+        this.workerStatus = "Active";
+        this.performanceRating = "Average";
+        this.performanceNotes = "";
+        this.bonusAmount = BigDecimal.ZERO;
+    }
 
-public String getWorkerName() {
-return workerName;
-}
+    public int getWorkerId() {
+        return workerId;
+    }
 
-public String getWorkType() {
-return workType;
-}
+    public void setWorkerId(int workerId) {
+        this.workerId = workerId;
+    }
 
-public String getPhoneNumber() {
-return phoneNumber;
-}
+    public int getProjectId() {
+        return projectId;
+    }
 
-public BigDecimal getDailyWage() {
-return dailyWage;
-}
+    public String getFullName() {
+        return fullName;
+    }
 
-public String getStatus() {
-return status;
-}
+    public String getPhone() {
+        return phone;
+    }
 
-// to check that daily wage is not negative :/
-public void setDailyWage(BigDecimal dailyWage) {
-if (dailyWage != null && dailyWage.compareTo(BigDecimal.ZERO) >= 0) 
-{
-this.dailyWage = dailyWage;
-}
-}
+    public String getJobType() {
+        return jobType;
+    }
 
-// Update worker status
-public void setStatus(String status) {
-if ("Active".equals(status) || "Inactive".equals(status)) {
-this.status = status;
-}
-}
+    public LocalDate getJoiningDate() {
+        return joiningDate;
+    }
+
+    public String getWageType() {
+        return wageType;
+    }
+
+    public BigDecimal getWageAmount() {
+        return wageAmount;
+    }
+
+    public String getWorkerStatus() {
+        return workerStatus;
+    }
+
+    public void setWorkerStatus(String workerStatus) {
+        this.workerStatus = workerStatus;
+    }
+
+    public String getPerformanceRating() {
+        return performanceRating;
+    }
+
+    public void setPerformanceRating(String performanceRating) {
+        this.performanceRating = performanceRating;
+    }
+
+    public String getPerformanceNotes() {
+        return performanceNotes;
+    }
+
+    public void setPerformanceNotes(String performanceNotes) {
+        this.performanceNotes = performanceNotes;
+    }
+
+    public BigDecimal getBonusAmount() {
+        return bonusAmount;
+    }
+
+    public void setBonusAmount(BigDecimal bonusAmount) {
+        this.bonusAmount = bonusAmount;
+    }
 }
